@@ -43,7 +43,7 @@ public class ClientController {
 	}
 
 	// http://localhost:8080/gestion_jeux/mvc/cli/client/id/10
-	// Affiche le client sélectionné avec l'id en GET
+	// Affiche le client sélectionné avec l'id en GE
 	@GetMapping(value = "/client/id/{id}")
 	public Client findClientById(@PathVariable("id") Long id) {
 		return clientDao.find(id);
