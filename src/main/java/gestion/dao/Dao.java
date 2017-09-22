@@ -2,8 +2,6 @@ package gestion.dao;
 
 import java.util.List;
 
-
-
 public interface Dao<T, PK> {
 	List<T> findAll();
 

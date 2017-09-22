@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import gestion.controller.data.Compte;
 import gestion.dao.AdresseDao;
 import gestion.dao.ClientDao;
+
 import gestion.dao.LoginDao;
 import gestion.model.Client;
 import gestion.model.Adresse;
@@ -31,6 +33,7 @@ public class ClientController {
 	AdresseDao adresseDao;
 	@Autowired
 	LoginDao loginDao;
+	
 
 	// Affiche tous les clients
 	// http://localhost:8080/gestion_jeux/mvc/cli/clients
@@ -80,17 +83,14 @@ public class ClientController {
 		loginDao.create(login);
 	}
 	
-	@PostMapping(value="/create")
-	public void creerCompte(@RequestBody Client client , Adresse adresse, Login login) {
-		clientDao.create(client);
-		adresseDao.create(adresse);
-		loginDao.create(login);
-		client.setAdresse(adresse);
-		client.setLogin(login);
-		clientDao.update(client);
+	@PostMapping(value = "/compte")
+	public void creerCompte(@RequestBody Compte compte) {
+		System.out.println(compte.toString());
+		Client client = compte.getClient();
+		
+		
+		//compteDao.create(compte);
 	}
-
-
 	
 
 }
