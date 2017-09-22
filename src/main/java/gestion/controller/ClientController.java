@@ -2,6 +2,8 @@ package gestion.controller;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -84,11 +86,15 @@ public class ClientController {
 	}
 	
 	@PostMapping(value = "/compte")
-	public void creerCompte(@RequestBody Compte compte) {
+	public void creerCompte(@RequestBody() Compte compte) {
 		System.out.println(compte.toString());
 		Client client = compte.getClient();
+		Login login = compte.getLogin();
+		Adresse adresse = compte.getAdresse();
 		
-		
+		client.setLogin(login);
+		client.setAdresse(adresse);
+		clientDao.update(client);
 		//compteDao.create(compte);
 	}
 	
