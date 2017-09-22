@@ -32,20 +32,20 @@ public class JeuVideoDaoJpa implements JeuVideoDao {
 
 	@Override
 	public JeuVideo findByNom(String nom) {
-		Query query = em.createQuery("select j from JeuVideo as j where j.nomJeu=nom");
-		return (JeuVideo) query.getSingleResult();
+		Query query = em.createQuery("select j from JeuVideo as j where j.nomJeu=:nom");
+		return (JeuVideo) query.setParameter("nom", nom).getSingleResult();
 	}
 
 	@Override
 	public JeuVideo findByGenre(String genre) {
-		Query query = em.createQuery("select j from JeuVideo as j where j.genre=genre");
-		return (JeuVideo) query.getSingleResult();
+		Query query = em.createQuery("select j from JeuVideo as j where j.genre=:genre");
+		return (JeuVideo) query.setParameter("genre", genre).getSingleResult();
 	}
 
 	@Override
 	public JeuVideo findByPlateforme(String plateforme) {
-		Query query = em.createQuery("select j from JeuVideo as j where j.plateforme=plateforme");
-		return (JeuVideo) query.getSingleResult();
+		Query query = em.createQuery("select j from JeuVideo as j where j.plateforme=:plateforme");
+		return (JeuVideo) query.setParameter("plateforme", plateforme).getSingleResult();
 	}
 
 	@Override

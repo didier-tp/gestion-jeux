@@ -2,6 +2,8 @@ package gestion.dao;
 
 import java.util.List;
 
+
+
 public interface Dao<T, PK> {
 	List<T> findAll();
 
@@ -12,4 +14,6 @@ public interface Dao<T, PK> {
 	T update(T obj);
 
 	void delete(T obj);
+
+
 }

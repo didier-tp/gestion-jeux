@@ -21,6 +21,7 @@ public class ClientDaoJpa implements ClientDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
+	
 	public List<Client> findAll() {
 		Query query = em.createQuery("select c from Client as c");
 		return query.getResultList();

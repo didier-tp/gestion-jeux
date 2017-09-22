@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,29 +17,22 @@ import gestion.dao.DestinataireDao;
 import gestion.dao.EmployeDao;
 import gestion.dao.JeuVideoDao;
 import gestion.dao.LoginDao;
+
 import gestion.model.JeuVideo;
 //import gestion.service.ServiceGestionStock;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/produits", headers = "Accept=application/json")
+@RequestMapping(value = "/pro", headers = "Accept=application/json")
 
 public class ProduitController {
 	/*
 	 * @Autowired ServiceGestionStock serviceGestionStock;
 	 */
-	@Autowired
-	ClientDao clientDao;
-	@Autowired
-	CommandeDao commandeDao;
-	@Autowired
-	EmployeDao employeDao;
-	@Autowired
-	DestinataireDao destinataireDao;
+
 	@Autowired
 	JeuVideoDao jeuVideoDao;
-	@Autowired
-	LoginDao loginDao;
+
 
 	// affiche la liste des jeux
 	// http://localhost:8080/gestion_jeux/mvc/produits/jeux
@@ -46,8 +40,28 @@ public class ProduitController {
 	public List<JeuVideo> findAll() {
 		return jeuVideoDao.findAll();
 	}
+	
+	// a faire dans Angular
+	 @GetMapping(value ="/Jeux/nom/{nom}")
+		public JeuVideo findByNom(@PathVariable("nom") String nom) {
+			return jeuVideoDao.findByNom(nom);
+	 }
+	 
+	// a faire dans Angular
+	 @GetMapping(value ="/Jeux/genre/{genre}")
+		public JeuVideo findByGenre(@PathVariable("genre") String genre) {
+			return jeuVideoDao.findByGenre(genre);
+	 }
+	 
+	// a faire dans Angular
+	 @GetMapping(value ="/Jeux/plate/{plateforme}")
+		public JeuVideo findByPlateforme(@PathVariable("plateforme") String plateforme) {
+			return jeuVideoDao.findByPlateforme(plateforme);
+	 }
+	 
 
 	// permet la création d'un jeu
+	// a faire dans Angular
 	@PostMapping(value = "/jeu")
 	public void creerJeu(@RequestBody JeuVideo jeuVideo) {
 		jeuVideoDao.create(jeuVideo);

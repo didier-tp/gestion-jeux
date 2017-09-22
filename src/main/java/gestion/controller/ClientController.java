@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import gestion.dao.AdresseDao;
 import gestion.dao.ClientDao;
-import gestion.dao.CommandeDao;
-import gestion.dao.DestinataireDao;
-import gestion.dao.EmployeDao;
-import gestion.dao.JeuVideoDao;
 import gestion.dao.LoginDao;
 import gestion.model.Client;
+import gestion.model.Adresse;
+import gestion.model.Login;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -29,13 +28,7 @@ public class ClientController {
 	@Autowired
 	ClientDao clientDao;
 	@Autowired
-	CommandeDao commandeDao;
-	@Autowired
-	EmployeDao employeDao;
-	@Autowired
-	DestinataireDao destinataireDao;
-	@Autowired
-	JeuVideoDao jeuVideoDao;
+	AdresseDao adresseDao;
 	@Autowired
 	LoginDao loginDao;
 
@@ -60,42 +53,44 @@ public class ClientController {
 		return clientDao.findByName(nom);
 	}
 
-	// http://localhost:8080/gestion_jeux/mvc/cli/client/email/bousfihajamal@hotmail.com
-	// Affiche le client sélectionné avec le mail en GET
-
-	// @GetMapping(value = "/client/email/{mail}")
-	// public Client findClientByMail(@PathVariable("mail") String email) {
-	// return clientDao.findByMail(email);
-	// }
 
 	@GetMapping(value = "/client/tel/{tel}")
 	public Client findClientByTel(@PathVariable("tel") int tel) {
 		return clientDao.findByTel(tel);
 	}
 
-	// Permet la création d'un client
-	// http://localhost:8080/gestion_jeux/mvc/cli/client
-	/*
-	 * json à insérer pour test {"prenom":"aboubacar", "nom":"toure",
-	 * "mail":"aboubacar.toure91@gmail.com", "telephone":654747894, "adresse":null}
-	 */
 	@PostMapping(value = "/client")
 	public void creerClient(@RequestBody Client client) {
 		clientDao.create(client);
 	}
-	/* @GetMapping(value ="/client")
-	public void seConnecterClient(@RequestBody Client client) {
-	 clientDao.seConnecter(client); 
+	
+	@GetMapping(value = "/addresses")
+	public List<Adresse> findAll1() {
+		return adresseDao.findAll();
 	}
 	
-	@PutMapping(value ="/client")
-	public void gererCoordonnesClient(@RequestBody Client client) {
-	 clientDao.gererCoordonnes(client);
-	 }
+	@PostMapping(value = "/adresse")
+	public void creerAdresse(@RequestBody Adresse adresse) {
+		adresseDao.create(adresse);
+	}
 	
-	@PutMapping(value="/client")
-	public void miseAJourHistoriqueClient(@RequestBody Client client) {
-	 commandeDao.miseAJourHistorique(client);
-	} */
+
+	@PostMapping(value = "/login")
+	public void creerLogin(@RequestBody Login login) {
+		loginDao.create(login);
+	}
+	
+	@PostMapping(value="/create")
+	public void creerCompte(@RequestBody Client client , Adresse adresse, Login login) {
+		clientDao.create(client);
+		adresseDao.create(adresse);
+		loginDao.create(login);
+		client.setAdresse(adresse);
+		client.setLogin(login);
+		clientDao.update(client);
+	}
+
+
+	
 
 }
