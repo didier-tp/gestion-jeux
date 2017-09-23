@@ -2,8 +2,6 @@ package gestion.controller;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,9 +30,9 @@ public class ClientController {
 	@Autowired
 	ClientDao clientDao;
 	@Autowired
-	AdresseDao adresseDao;
-	@Autowired
 	LoginDao loginDao;
+	@Autowired
+	AdresseDao adresseDao;
 	
 
 	// Affiche tous les clients
@@ -84,17 +82,18 @@ public class ClientController {
 	public void creerLogin(@RequestBody Login login) {
 		loginDao.create(login);
 	}
-	
+	//http://localhost:8080/gestion_jeux/mvc/cli/compte
 	@PostMapping(value = "/compte")
-	public void creerCompte(@RequestBody() Compte compte) {
+	public void creerCompte(@RequestBody Compte compte) {
 		System.out.println(compte.toString());
-		Client client = compte.getClient();
 		Login login = compte.getLogin();
-		Adresse adresse = compte.getAdresse();
+		loginDao.create(login);
+		Client client = compte.getClient();
+		client.setAdresse(compte.getAdresse());
+		client.setLogin(compte.getLogin());
+		clientDao.create(client);
 		
-		client.setLogin(login);
-		client.setAdresse(adresse);
-		clientDao.update(client);
+		
 		//compteDao.create(compte);
 	}
 	

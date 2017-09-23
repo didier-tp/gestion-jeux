@@ -47,7 +47,13 @@ public class JeuVideoDaoJpa implements JeuVideoDao {
 		Query query = em.createQuery("select j from JeuVideo as j where j.plateforme=:plateforme");
 		return (JeuVideo) query.setParameter("plateforme", plateforme).getSingleResult();
 	}
-
+	
+	@Override
+	public JeuVideo findByPrix(float prix) {
+		Query query = em.createQuery("select j from JeuVideo as j where j.prix=:prix");
+		return (JeuVideo) query.setParameter("prix", prix).getSingleResult();
+	}
+	
 	@Override
 	public void create(JeuVideo obj) {
 		em.persist(obj);

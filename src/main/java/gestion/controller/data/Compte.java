@@ -1,10 +1,6 @@
 package gestion.controller.data;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import gestion.model.Adresse;
 import gestion.model.Client;
@@ -17,6 +13,7 @@ public class Compte implements Serializable {
 	 */
 	private static final long serialVersionUID = -5446497615246014060L;
 	
+
 	private Client client;
 
 	private Adresse adresse;

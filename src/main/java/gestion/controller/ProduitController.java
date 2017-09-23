@@ -16,7 +16,6 @@ import gestion.dao.CommandeDao;
 import gestion.dao.DestinataireDao;
 import gestion.dao.EmployeDao;
 import gestion.dao.JeuVideoDao;
-import gestion.dao.LoginDao;
 
 import gestion.model.JeuVideo;
 //import gestion.service.ServiceGestionStock;
@@ -58,6 +57,12 @@ public class ProduitController {
 		public JeuVideo findByPlateforme(@PathVariable("plateforme") String plateforme) {
 			return jeuVideoDao.findByPlateforme(plateforme);
 	 }
+	 
+	// a faire dans Angular
+		 @GetMapping(value ="/Jeux/prix/{prix}")
+			public JeuVideo findByPrix(@PathVariable("prix") float prix) {
+				return jeuVideoDao.findByPrix(prix);
+		 }
 	 
 
 	// permet la création d'un jeu
